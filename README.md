@@ -26,6 +26,10 @@ Kids Schedule application will help kids track their daily works and motivate th
 
 ## FireBase
 
+* User collection (userId)
+* Collections of days of the week (userId, taskId -?)
+* Collections of tasks (userId, weekId)
+
 ## Known Bugs
 
 _No known bags_
