@@ -18,6 +18,14 @@ Kids Schedule application will help kids track their daily works and motivate th
 
 <img src="public/component-tree.png"/><br>
 
+* User can sign in and sign up
+* Main user page incledes: greeting with user name, sign out buttton, sidebar with button to add a task and see the rewards, schedule table with day of the week columns 
+* User can create a task and add it to corresponding part of the schedule table (such as school schedule and homework, after-school activities, etc.) 
+* User can click on the task and see details, with edit, done, and delete buttons 
+* For each “done” task user will get a reward (a star, a sticker, etc.), that appears on reward page
+
+## FireBase
+
 ## Known Bugs
 
 _No known bags_
