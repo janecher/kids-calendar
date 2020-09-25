@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 function SignIn(props){
   return (
@@ -19,5 +20,9 @@ function SignIn(props){
       </React.Fragment> 
   );
 }
+
+SignIn.propTypes = {
+  onClickingSignUp: PropTypes.func
+};
 
 export default SignIn;
