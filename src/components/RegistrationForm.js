@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function RegistrationForm(props) {
   return (
     <React.Fragment>
-      <div className="col-md-8 col-lg-6 mt-5 mx-auto">
+      <div className="col-md-8 col-lg-6 mt-5 mx-auto start-pages">
         <div className="card">
           <div className="card-body">
             <button type="button" onClick = {() => props.onCloseForm()} className="close" aria-label="Close">

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function SignIn(props){
   return (
     <React.Fragment>
-      <div className="text-center">
+      <div className="text-center start-pages">
         <h1 className="mt-5">Kids Schedule</h1>
         <p className="lead mb-5">You can plan it by yourself!</p>
         <div className="col-md-6 col-8 mx-auto">

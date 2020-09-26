@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.hello, .sidebar {
+  background-color: green;
+}
+
+.start-pages {
+  background-image: url('./assets/images/background.jpg');
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fill {
+  background-color: yellow;
+  min-height: 100vh;
+  height: 100%;
+}
