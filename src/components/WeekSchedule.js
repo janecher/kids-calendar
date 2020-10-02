@@ -5,7 +5,7 @@ function WeekSchedule(){
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   return (
     <React.Fragment>
-      <div className="row text-center">
+      <div className="row text-center rounded">
         {weekDays.map((weekday) =>
           <WeekDay day={weekday} />
         )}
