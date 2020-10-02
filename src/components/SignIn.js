@@ -5,7 +5,7 @@ function SignIn(props){
   return (
     <React.Fragment>
       <div className="text-center start-pages">
-        <h1 className="mt-5">Kids Schedule</h1>
+        <h1 className="mt-10">Kids Schedule</h1>
         <p className="lead mb-5">You can plan it by yourself!</p>
         <div className="col-md-6 col-8 mx-auto">
           <div className="input-group">
@@ -15,7 +15,7 @@ function SignIn(props){
             </div>
           </div>
         </div>
-        <button type="button" onClick = {() => props.onClickingSignUp()} className="btn btn-info btn-lg mt-3" aria-labelledby="signUpModel" data-toggle="modal" data-target="#signUp">Sign Up</button>
+        <button type="button" onClick = {() => props.onClickingSignUp()} className="btn btn-info btn-lg mt-3" id="signUp">Sign Up</button>
       </div>
       </React.Fragment> 
   );
