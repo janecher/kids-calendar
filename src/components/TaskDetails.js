@@ -14,7 +14,7 @@ function TaskDetail(props){
             <div className="card-text">
               <p>Name: {props.task.name}</p>
               <p>Start time: {props.task.startTime}</p>
-              <p>End time: {props.task.startTime}</p>
+              <p>End time: {props.task.endTime}</p>
               <button type='button' className="btn btn-info" onClick={() => props.onClickingEdit()}>Edit</button>
               <button type='button' className="btn btn-info">Done</button>
               <button type='button' className="btn btn-info">Delete</button>
