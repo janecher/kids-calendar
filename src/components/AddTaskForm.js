@@ -1,7 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { v4 } from 'uuid';
 
 function AddTaskForm(props) {
+
+  function handleAddTaskFormSubmission(event) {
+    event.preventDefault();
+    props.onNewTaskCreation({name: event.target.name.value, startTime: event.target.startTime.value, endTime: event.target.endTime.value, day: event.target.day.value, id: v4()});
+  }
+
   return (
     <React.Fragment>
       <div className="col-md-8 col-lg-6 mt-5 mx-auto start-page fill">
@@ -12,7 +19,7 @@ function AddTaskForm(props) {
             </button>
             <h4 className="card-title">{props.formHeader}</h4>
             <div className="card-text">
-              <form className="" onSubmit={props.formSubmissionHandler}>
+              <form className="" onSubmit={handleAddTaskFormSubmission}>
                 <div className="form-group">
                   <label>Name</label>
                   <input className="form-control form-control-lg"
@@ -21,19 +28,31 @@ function AddTaskForm(props) {
                     required
                   />
                 </div>
-                <div className ="form-group">
-                  <label>Time</label>
-                  <input className="form-control form-control-lg"
-                    type="time"
-                    name="time"
-                    min="09:00" 
-                    max="18:00" 
-                    required
-                  />
+                <div className="row">
+                  <div className ="form-group col-6">
+                    <label>Start Time</label>
+                    <input className="form-control form-control-lg"
+                      type="time"
+                      name="startTime"
+                      min="09:00" 
+                      max="18:00" 
+                      required
+                    />
+                  </div>
+                  <div className ="form-group col-6">
+                    <label>End Time</label>
+                    <input className="form-control form-control-lg"
+                      type="time"
+                      name="endTime"
+                      min="09:00" 
+                      max="18:00" 
+                      required
+                    />
+                  </div>
                 </div>
                 <div className="form-group">
                   <label>Day</label>
-                  <select class="form-control form-control-lg">
+                  <select className="form-control form-control-lg" name="day">
                     <option>Monday</option>
                     <option>Tuesday</option>
                     <option>Wednesday</option>
@@ -54,7 +73,8 @@ function AddTaskForm(props) {
 }
 
 AddTaskForm.propTypes = {
-  onCloseAddTaskForm: PropTypes.func
+  onCloseAddTaskForm: PropTypes.func,
+  onNewTaskCreation: PropTypes.func
 };
 
 export default AddTaskForm;
