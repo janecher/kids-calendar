@@ -19,7 +19,7 @@ function WeekSchedule(props){
     <React.Fragment>
       <div className="row text-center rounded">
         {weekDays.map((weekday, index) =>
-          <WeekDay day={weekday} key={index} tasks={getTasksForDay(weekday)}/>
+          <WeekDay day={weekday} key={index} tasks={getTasksForDay(weekday)} whenTaskClicked = {props.onTaskSelection}/>
         )}
       </div>
       </React.Fragment>
@@ -27,7 +27,8 @@ function WeekSchedule(props){
 }
 
 WeekSchedule.propTypes = {
-  tasks: PropTypes.array
+  tasks: PropTypes.array,
+  onTaskSelection: PropTypes.func
 };
 
 export default WeekSchedule

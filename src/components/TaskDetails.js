@@ -15,7 +15,7 @@ function TaskDetail(props){
               <p>Name: {props.task.name}</p>
               <p>Start time: {props.task.startTime}</p>
               <p>End time: {props.task.startTime}</p>
-              <button type='button' className="btn btn-info">Edit</button>
+              <button type='button' className="btn btn-info" onClick={() => props.onClickingEdit()}>Edit</button>
               <button type='button' className="btn btn-info">Done</button>
               <button type='button' className="btn btn-info">Delete</button>
             </div>
@@ -28,6 +28,7 @@ function TaskDetail(props){
 
 TaskDetail.propTypes = {
   task: PropTypes.object,
-  onCloseTaskDetail: PropTypes.func
+  onCloseTaskDetail: PropTypes.func,
+  onClickingEdit: PropTypes.func
 };
 export default TaskDetail

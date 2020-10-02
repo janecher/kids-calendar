@@ -6,10 +6,10 @@ function WeekDay(props){
   return (
     <React.Fragment>
       <div className="col col-xs-12 fill rounded">
-        <p className="rounded border-secondary "><strong>{props.day}</strong></p>
+        <p className="rounded border-secondary"><strong>{props.day}</strong></p>
         <div className="tasks">
           {props.tasks.map((task, index) =>
-            <Task task={task} key={index}/>
+            <Task task={task} key={index} whenTaskClicked ={props.whenTaskClicked}/>
           )}
         </div>
       </div>
@@ -19,7 +19,8 @@ function WeekDay(props){
 
 WeekDay.propTypes = {
   day: PropTypes.string,
-  tasks: PropTypes.array
+  tasks: PropTypes.array,
+  whenTaskClicked: PropTypes.func
 };
 
 export default WeekDay
