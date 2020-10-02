@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import WeekSchedule from './WeekSchedule';
 import AddTaskForm from './AddTaskForm';
 
 function UserControl(){
   const [addTaskForm, setAddTaskForm] = useState(false);
+
+  const [tasks, setTasks] = useState([]);
 
   const toggleTaskForm = () => {
     setAddTaskForm(!addTaskForm);
@@ -11,10 +13,21 @@ function UserControl(){
 
   let currentPage = null;
 
+  const handleAddingNewTaskToList = (newTask) => {
+    setTasks(tasks.concat(newTask));
+    console.log(newTask);
+    setAddTaskForm(false);
+  }
+
+  useEffect(() => {
+    console.log(tasks);
+  });
+
   if(addTaskForm) {
-    currentPage = <AddTaskForm onCloseAddTaskForm={toggleTaskForm}/>
+    currentPage = <AddTaskForm onCloseAddTaskForm={toggleTaskForm} onNewTaskCreation={handleAddingNewTaskToList}/>
   } else {
-    currentPage = <WeekSchedule />
+    console.log(tasks);
+    currentPage = <WeekSchedule tasks={tasks}/>
   }
 
   return (

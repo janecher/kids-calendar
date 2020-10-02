@@ -12,10 +12,6 @@ code {
     monospace;
 }
 
-.hello, .sidebar {
-  background-color: green;
-}
-
 .start-pages {
   padding-top: 100px;
   height: 100%;

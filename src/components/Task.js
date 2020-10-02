@@ -5,15 +5,14 @@ function Task(props){
   return (
     <React.Fragment>
       <div>
-        <p>{props.startTime} - {props.task}</p>
+        <p>{props.task.name}</p>
       </div>
     </React.Fragment>
   );
 }
 
-TaskDetail.propTypes = {
-  task: PropTypes.string,
-  startTime: PropTypes.string
+Task.propTypes = {
+  task: PropTypes.object
 };
 
 export default Task
