@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import WeekSchedule from './WeekSchedule';
 import AddTaskForm from './AddTaskForm';
 import EditTaskForm from './EditTaskForm';
 import TaskDetail from './TaskDetails';
+import { withFirestore } from 'react-redux-firebase';
 
-function UserControl(){
+function UserControl(props){
   const [addTaskForm, setAddTaskForm] = useState(false);
   const [editTaskForm, setEditTaskForm] = useState(false);
-  const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const toggleAddTaskForm = () => {
@@ -24,21 +24,24 @@ function UserControl(){
     setAddTaskForm(false);
   }
 
-  const handleEditingTaskInList = (taskToEdit) => {
-    const editedTaskList = tasks.filter(task => task.id !== taskToEdit.id).concat(taskToEdit);
-    setTasks(editedTaskList);
+  const handleEditingTaskInList = () => {
     setEditTaskForm(false);
     setSelectedTask(null);
   }
 
   const handleChangingSelectedTask = (id) => {
-    const selectedTaskById = tasks.filter(task => task.id === id)[0];
-    setSelectedTask(selectedTaskById);
+    props.firestore.get({collection: 'tasks', doc: id}).then((task) => {
+      const firestoreTask = {
+        name: task.get("name"),
+        description: task.get("description"),
+        startTime: task.get("startTime"), 
+        endTime: task.get("endTime"),
+        day: task.get("day"),
+        id: task.id
+      }
+      setSelectedTask(firestoreTask);
+    });    
   }
-
-  useEffect(() => {
-    console.log(tasks);
-  });
 
   let currentPage = null;
 
@@ -49,7 +52,7 @@ function UserControl(){
   } else if (addTaskForm) {
     currentPage = <AddTaskForm onCloseAddTaskForm={toggleAddTaskForm} onNewTaskCreation={handleAddingNewTask}/>
   } else {
-    currentPage = <WeekSchedule tasks={tasks} onTaskSelection={handleChangingSelectedTask}/>
+    currentPage = <WeekSchedule onTaskSelection={handleChangingSelectedTask}/>
   }
 
   return (
@@ -77,4 +80,4 @@ function UserControl(){
     </React.Fragment>
   );
 }
-export default UserControl
+export default withFirestore(UserControl);

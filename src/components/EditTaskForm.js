@@ -1,11 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useFirestore } from 'react-redux-firebase';
 
 function EditTaskForm(props) {
 
+  const {task} = props;
+
+  const firestore = useFirestore();
+
   function handleEditTaskFormSubmission(event) {
     event.preventDefault();
-    props.onEditTask({name: event.target.name.value, startTime: event.target.startTime.value, endTime: event.target.endTime.value, day: event.target.day.value, id: props.task.id});
+    props.onEditTask();
+    const propertiesToUpdate = {
+      name: event.target.name.value,
+      description: event.target.description.value,
+      startTime: event.target.startTime.value, 
+      endTime: event.target.endTime.value,
+      day: event.target.day.value
+    }
+    return firestore.update({collection: 'tasks', doc: task.id }, propertiesToUpdate)
   }
 
   return (
@@ -27,14 +40,20 @@ function EditTaskForm(props) {
                     required
                   />
                 </div>
+                <div className="form-group">
+                  <label>Description</label>
+                  <input className="form-control form-control-lg"
+                    type='text'
+                    name='description'
+                    required
+                  />
+                </div>
                 <div className="row">
                   <div className ="form-group col-6">
                     <label>Start Time</label>
                     <input className="form-control form-control-lg"
                       type="time"
                       name="startTime"
-                      min="09:00" 
-                      max="18:00" 
                       required
                     />
                   </div>
@@ -43,8 +62,6 @@ function EditTaskForm(props) {
                     <input className="form-control form-control-lg"
                       type="time"
                       name="endTime"
-                      min="09:00" 
-                      max="18:00" 
                       required
                     />
                   </div>

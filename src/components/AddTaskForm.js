@@ -53,8 +53,6 @@ function AddTaskForm(props) {
                     <input className="form-control form-control-lg"
                       type="time"
                       name="startTime"
-                      min="09:00" 
-                      max="18:00" 
                       required
                     />
                   </div>
@@ -63,8 +61,6 @@ function AddTaskForm(props) {
                     <input className="form-control form-control-lg"
                       type="time"
                       name="endTime"
-                      min="09:00" 
-                      max="18:00" 
                       required
                     />
                   </div>
