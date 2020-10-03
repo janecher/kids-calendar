@@ -1,12 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { v4 } from 'uuid';
+import { useFirestore } from 'react-redux-firebase'
 
 function AddTaskForm(props) {
 
+  const firestore = useFirestore();
+
   function handleAddTaskFormSubmission(event) {
     event.preventDefault();
-    props.onNewTaskCreation({name: event.target.name.value, startTime: event.target.startTime.value, endTime: event.target.endTime.value, day: event.target.day.value, id: v4()});
+    props.onNewTaskCreation();
+    return firestore.collection('tasks').add(
+      {
+        name: event.target.name.value,
+        description: event.target.description.value,
+        startTime: event.target.startTime.value, 
+        endTime: event.target.endTime.value,
+        day: event.target.day.value
+      }
+    );
   }
 
   return (
@@ -25,6 +36,14 @@ function AddTaskForm(props) {
                   <input className="form-control form-control-lg"
                     type='text'
                     name='name'
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Description</label>
+                  <input className="form-control form-control-lg"
+                    type='text'
+                    name='description'
                     required
                   />
                 </div>

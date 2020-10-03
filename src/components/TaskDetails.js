@@ -13,6 +13,7 @@ function TaskDetail(props){
             <h4 className="card-title">{props.formHeader}</h4>
             <div className="card-text">
               <p>Name: {props.task.name}</p>
+              <p>Description: {props.task.description}</p>
               <p>Start time: {props.task.startTime}</p>
               <p>End time: {props.task.endTime}</p>
               <button type='button' className="btn btn-info" onClick={() => props.onClickingEdit()}>Edit</button>

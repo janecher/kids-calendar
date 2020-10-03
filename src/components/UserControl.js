@@ -20,8 +20,7 @@ function UserControl(){
     setSelectedTask(null);
   }
 
-  const handleAddingNewTaskToList = (newTask) => {
-    setTasks(tasks.concat(newTask));
+  const handleAddingNewTask = () => {
     setAddTaskForm(false);
   }
 
@@ -48,7 +47,7 @@ function UserControl(){
   } else if (selectedTask) {
     currentPage = <TaskDetail task = {selectedTask} onClickingEdit = {toggleEditTaskForm} onCloseTaskDetail = {toggleTaskDetail}/>
   } else if (addTaskForm) {
-    currentPage = <AddTaskForm onCloseAddTaskForm={toggleAddTaskForm} onNewTaskCreation={handleAddingNewTaskToList}/>
+    currentPage = <AddTaskForm onCloseAddTaskForm={toggleAddTaskForm} onNewTaskCreation={handleAddingNewTask}/>
   } else {
     currentPage = <WeekSchedule tasks={tasks} onTaskSelection={handleChangingSelectedTask}/>
   }
