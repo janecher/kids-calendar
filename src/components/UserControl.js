@@ -43,12 +43,17 @@ function UserControl(props){
     });    
   }
 
+  const handleDeletingTask = (id) => {
+    props.firestore.delete({collection: 'tasks', doc: id});
+    setSelectedTask(null);
+  }
+
   let currentPage = null;
 
   if(editTaskForm) {
     currentPage = <EditTaskForm task = {selectedTask} onEditTask = {handleEditingTaskInList} onCloseEditTaskForm = {toggleEditTaskForm}/>
   } else if (selectedTask) {
-    currentPage = <TaskDetail task = {selectedTask} onClickingEdit = {toggleEditTaskForm} onCloseTaskDetail = {toggleTaskDetail}/>
+    currentPage = <TaskDetail task = {selectedTask} onClickingEdit = {toggleEditTaskForm} onCloseTaskDetail = {toggleTaskDetail} onClickingDelete = {handleDeletingTask}/>
   } else if (addTaskForm) {
     currentPage = <AddTaskForm onCloseAddTaskForm={toggleAddTaskForm} onNewTaskCreation={handleAddingNewTask}/>
   } else {

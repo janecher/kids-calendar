@@ -28,7 +28,7 @@ function AddTaskForm(props) {
             <button type="button" onClick = {() => props.onCloseAddTaskForm()} className="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 className="card-title">{props.formHeader}</h4>
+            <h4 className="card-title">Create New Task</h4>
             <div className="card-text">
               <form className="" onSubmit={handleAddTaskFormSubmission}>
                 <div className="form-group">

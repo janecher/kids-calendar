@@ -29,7 +29,7 @@ function EditTaskForm(props) {
             <button type="button" onClick = {() => props.onCloseEditTaskForm()} className="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 className="card-title">{props.formHeader}</h4>
+            <h4 className="card-title">Edit Task: {task.name}</h4>
             <div className="card-text">
               <form className="" onSubmit={handleEditTaskFormSubmission}>
                 <div className="form-group">
@@ -89,6 +89,7 @@ function EditTaskForm(props) {
 }
 
 EditTaskForm.propTypes = {
+  task: PropTypes.object,
   onCloseEditTaskForm: PropTypes.func,
   onEditTask: PropTypes.func
 };
