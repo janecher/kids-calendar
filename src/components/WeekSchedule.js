@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 
 function WeekSchedule(props){
-  const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   useFirestoreConnect([
     { collection: 'tasks' }
@@ -26,9 +25,9 @@ function WeekSchedule(props){
   if (isLoaded(tasks) && !isEmpty(tasks)) {
     return (
       <React.Fragment>
-      <div className="row text-center rounded">
-        {weekDays.map((weekday, index) =>
-          <WeekDay day={weekday} key={index} tasks={getTasksForDay(weekday)} whenTaskClicked = {props.onTaskSelection}/>
+      <div className="row text-center">
+        {props.weekDays.map((weekday, index) =>
+          <WeekDay day={weekday} key={index} tasks={getTasksForDay(weekday)} color={props.colors[index]} whenTaskClicked = {props.onTaskSelection}/>
         )}
       </div>
       </React.Fragment>
@@ -36,9 +35,9 @@ function WeekSchedule(props){
   } else {
     return (
       <React.Fragment>
-      <div className="row text-center rounded">
-        {weekDays.map((weekday, index) =>
-          <WeekDay day={weekday} key={index} tasks={[]}/>
+      <div className="row text-center">
+        {props.weekDays.map((weekday, index) =>
+          <WeekDay day={weekday} key={index} color={props.colors[index]} tasks={[]}/>
         )}
       </div>
       </React.Fragment>
@@ -47,8 +46,9 @@ function WeekSchedule(props){
 }
 
 WeekSchedule.propTypes = {
-  tasks: PropTypes.array,
-  onTaskSelection: PropTypes.func
+  colors: PropTypes.array,
+  onTaskSelection: PropTypes.func,
+  weekDays: PropTypes.array
 };
 
 export default WeekSchedule
