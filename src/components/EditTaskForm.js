@@ -4,13 +4,13 @@ import { useFirestore } from 'react-redux-firebase';
 
 function EditTaskForm(props) {
 
-  const {task} = props;
+  const {task, onEditTask, onCloseEditTaskForm} = props;
 
   const firestore = useFirestore();
 
   function handleEditTaskFormSubmission(event) {
     event.preventDefault();
-    props.onEditTask();
+    onEditTask();
     const propertiesToUpdate = {
       name: event.target.name.value,
       description: event.target.description.value,
@@ -23,10 +23,10 @@ function EditTaskForm(props) {
 
   return (
     <React.Fragment>
-      <div className="col-md-8 col-lg-6 mt-5 mx-auto start-page fill">
+      <div className="col-md-8 col-lg-6 mt-5 mx-auto fill">
         <div className="card">
           <div className="card-body">
-            <button type="button" onClick = {() => props.onCloseEditTaskForm()} className="close" aria-label="Close">
+            <button type="button" onClick = {() => onCloseEditTaskForm()} className="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             <h4 className="card-title">Edit Task: {task.name}</h4>
