@@ -6,12 +6,17 @@ import TaskDetail from './TaskDetails';
 import { withFirestore } from 'react-redux-firebase';
 
 function UserControl(props){
+  const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const colors = ["red", "orange", "yellow", "green", "light-blue", "blue", "purple"];
+
   const [addTaskForm, setAddTaskForm] = useState(false);
   const [editTaskForm, setEditTaskForm] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const toggleAddTaskForm = () => {
     setAddTaskForm(!addTaskForm);
+    setSelectedTask(null);
+    setEditTaskForm(false);
   }
   const toggleEditTaskForm = () => {
     setEditTaskForm(!editTaskForm);
@@ -37,6 +42,7 @@ function UserControl(props){
         startTime: task.get("startTime"), 
         endTime: task.get("endTime"),
         day: task.get("day"),
+        isDone: task.get("isDone"),
         id: task.id
       }
       setSelectedTask(firestoreTask);
@@ -48,37 +54,40 @@ function UserControl(props){
     setSelectedTask(null);
   }
 
+  const getRandomColorIndex = () => {
+    return Math.floor(Math.random() * Math.floor(colors.length));
+  }
+
   let currentPage = null;
 
   if(editTaskForm) {
-    currentPage = <EditTaskForm task = {selectedTask} onEditTask = {handleEditingTaskInList} onCloseEditTaskForm = {toggleEditTaskForm}/>
+    currentPage = <EditTaskForm task = {selectedTask} onEditTask = {handleEditingTaskInList} onCloseEditTaskForm = {toggleEditTaskForm} />
   } else if (selectedTask) {
-    currentPage = <TaskDetail task = {selectedTask} onClickingEdit = {toggleEditTaskForm} onCloseTaskDetail = {toggleTaskDetail} onClickingDelete = {handleDeletingTask}/>
+    currentPage = <TaskDetail task = {selectedTask} onClickingEdit = {toggleEditTaskForm} onCloseTaskDetail = {toggleTaskDetail} onClickingDelete = {handleDeletingTask} />
   } else if (addTaskForm) {
-    currentPage = <AddTaskForm onCloseAddTaskForm={toggleAddTaskForm} onNewTaskCreation={handleAddingNewTask}/>
+    currentPage = <AddTaskForm onCloseAddTaskForm={toggleAddTaskForm} onNewTaskCreation={handleAddingNewTask} />
   } else {
-    currentPage = <WeekSchedule onTaskSelection={handleChangingSelectedTask}/>
+    currentPage = <WeekSchedule onTaskSelection={handleChangingSelectedTask} weekDays = {weekDays} colors = {colors}/>
   }
 
   return (
     <React.Fragment>
       <div className="row text-center">
-        <div className="col-2 col-xs-12 hello p-3 rounded">
-          <p>Hello, user</p>
+        <div className="col-md-2 col-xs-12 col-sm-6 order-md-1 order-sm-1 hello p-3 border-right border-bottom border-info light-background">
+          <h2>Name</h2>
         </div>
-        <div className="col-8 col-xs-12 p-3 rounded">
+        <div className="col-md-8 col-xs-12 col-sm-12 order-md-1 order-sm-2 p-3 border-bottom border-info light-background">
           <p>Weekly loader</p>
         </div>
-        <div className="col-2 col-xs-12 p-3 rounded">
-          <button type="button" className="btn btn-info btn-lg mt-3">Sign Out</button>
+        <div className="col-md-2 col-xs-12  col-sm-6 order-sm-1 p-3 border-bottom border-info light-background">
+          <button type="button" className="btn btn-info btn-lg">Sign Out</button>
         </div>
       </div>
       <div className="row text-center">
-        <div className="col-2 col-xs-12 sidebar rounded">
-          <p>SideBar</p>
-          <button type="button" className="btn btn-info btn-lg mt-3" onClick={toggleAddTaskForm}>Add task</button>
+        <div className="col-md-2 col-sm-12 col-xs-12 sidebar border-right border-bottom border-info light-background">
+          <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleAddTaskForm}>Add task</button>
         </div>
-        <div className="col-10">
+        <div className={"col-md-10 " + colors[getRandomColorIndex()]}>
           {currentPage}
         </div>
       </div>
