@@ -15,14 +15,15 @@ function AddTaskForm(props) {
         description: event.target.description.value,
         startTime: event.target.startTime.value, 
         endTime: event.target.endTime.value,
-        day: event.target.day.value
+        day: event.target.day.value,
+        isDone: false
       }
     );
   }
 
   return (
     <React.Fragment>
-      <div className="col-md-8 col-lg-6 mt-5 mx-auto start-page fill">
+      <div className="col-md-8 col-lg-6 mt-5 mx-auto fill">
         <div className="card">
           <div className="card-body">
             <button type="button" onClick = {() => props.onCloseAddTaskForm()} className="close" aria-label="Close">
