@@ -37,13 +37,6 @@ code {
      while the background image is loading */
   background-color: #464646;
 }
-/* body {
-  background-image: url('./assets/images/background.jpg');
-  width: 100%; 
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
 
 .fill {
   min-height: 90vh;
@@ -52,4 +45,48 @@ code {
 
 .rounded {
   border-style: double;
+}
+
+.red {
+  background-color: #ffadad;
+}
+
+.orange {
+  background-color: #ffd6a5;
+}
+
+.yellow {
+  background-color: #fdffb6;
+}
+
+.green {
+  background-color: #caffbf;
+}
+
+.light-blue {
+  background-color: #9bf6ff;
+}
+
+.blue {
+  background-color: #a0c4ff;
+}
+
+.purple {
+  background-color: #bdb2ff;
+}
+
+.notDone {
+  background-color: white;
+  font-weight: bold;
+  color: #ef233c;
+}
+
+.done {
+  font-weight: bold;
+  color: #007f5f;
+  background-color: white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
