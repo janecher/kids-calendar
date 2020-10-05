@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from "prop-types";
 
 function Task(props){
+
+  const {task, whenTaskClicked} = props;
+
+  const doneStyle = task.isDone ? "done" : "notDone"; 
+
   return (
     <React.Fragment>
-      <div onClick = {() => props.whenTaskClicked(props.task.id)} className="rounded border-secondary">
-        <p>{props.task.name}</p>
+      <div onClick = {() => whenTaskClicked(task.id)} className={"cursor-pointer rounded border border-secondary border-info text-center mb-2 " + doneStyle}>
+        <p className="">{task.name}</p>
       </div>
     </React.Fragment>
   );
