@@ -3,6 +3,7 @@ import WeekSchedule from './WeekSchedule';
 import AddTaskForm from './AddTaskForm';
 import EditTaskForm from './EditTaskForm';
 import TaskDetail from './TaskDetails';
+import ApiSticker from './ApiSticker';
 import { withFirestore } from 'react-redux-firebase';
 
 function UserControl(props){
@@ -58,6 +59,9 @@ function UserControl(props){
     return Math.floor(Math.random() * Math.floor(colors.length));
   }
 
+  let todayIndex = new Date().getDay();
+  let today = todayIndex === 0 ? weekDays[6] : weekDays[todayIndex-1]
+
   let currentPage = null;
 
   if(editTaskForm) {
@@ -77,7 +81,7 @@ function UserControl(props){
           <h2>Name</h2>
         </div>
         <div className="col-md-8 col-xs-12 col-sm-12 order-md-1 order-sm-2 p-3 border-bottom border-info light-background">
-          <p>Weekly loader</p>
+          <h2>Today: {today}</h2>
         </div>
         <div className="col-md-2 col-xs-12  col-sm-6 order-sm-1 p-3 border-bottom border-info light-background">
           <button type="button" className="btn btn-info btn-lg">Sign Out</button>
@@ -86,6 +90,7 @@ function UserControl(props){
       <div className="row text-center">
         <div className="col-md-2 col-sm-12 col-xs-12 sidebar border-right border-bottom border-info light-background">
           <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleAddTaskForm}>Add task</button>
+          <ApiSticker />
         </div>
         <div className={"col-md-10 " + colors[getRandomColorIndex()]}>
           {currentPage}
