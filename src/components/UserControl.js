@@ -13,6 +13,20 @@ function UserControl(props){
   const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   //array for weekday background styles
   const colors = ["red", "orange", "yellow", "green", "light-blue", "blue", "purple"];
+  //inspire quotes
+  const quotes = ["Well done!", "Good job!", "Brilliant!", "Fantastic!", "Wonderfull!", "Great job!", "Outstanding!", "Great work!", "Good work!", "Perfect!", "Excellent!"];
+  
+  const [quote, setQuote] = useState("");
+
+  const showQuotes = () => {
+    setQuote(quotes[getRandomNumber(quotes.length)]);
+    const myShow = setInterval(() => setQuote(quotes[getRandomNumber(quotes.length)]), 10000);
+    console.log(quote);
+    setTimeout(() => {
+      clearInterval(myShow);
+      setQuote("");
+    }, 10000);
+  }
 
   //states for toggling forms and selected task
   const [addTaskForm, setAddTaskForm] = useState(false);
@@ -69,9 +83,9 @@ function UserControl(props){
     setSelectedTask(null);
   }
 
-  //function for getting random index in colors array and later add this style class for components backgroud
-  const getRandomColorIndex = () => {
-    return Math.floor(Math.random() * Math.floor(colors.length));
+  //function for getting random index in colors array and later add this style class for components backgroud, and also to get random quote
+  const getRandomNumber = (border) => {
+    return Math.floor(Math.random() * Math.floor(border));
   }
 
   //calculation what is the day of the week
@@ -105,6 +119,7 @@ function UserControl(props){
                     onClickingEdit = {toggleEditTaskForm} 
                     onCloseTaskDetail = {toggleTaskDetail} 
                     onClickingDelete = {handleDeletingTask} 
+                    onClickingDoneQuote = {showQuotes}
                     numberOfStickers = {stickers ? stickers.length : 0} 
                     />
   } else if(addTaskForm) {
@@ -130,8 +145,9 @@ function UserControl(props){
         <div className="col-md-2 col-sm-12 col-xs-12 sidebar border-right border-bottom border-info light-background">
           <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleAddTaskForm}>Add task</button>
           <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleStickersPage}>Treasurs</button>
+          <h4>{quote}</h4>
         </div>
-        <div className={"col-md-10 " + colors[getRandomColorIndex()]}>
+        <div className={"col-md-10 " + colors[getRandomNumber(colors.length)]}>
           {currentPage}
         </div>
       </div>
