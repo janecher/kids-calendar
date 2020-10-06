@@ -8,17 +8,31 @@ function EditTaskForm(props) {
 
   const firestore = useFirestore();
 
+  const Compare = (startTime, endTime) => {
+    const st = startTime.split(":");
+    const et = endTime.split(":");
+    if (st[0] <= et[0] && st[1] <= et[1]) { 
+      return true
+    } else {
+        return false;
+    }
+  }
+
   function handleEditTaskFormSubmission(event) {
     event.preventDefault();
-    onEditTask();
-    const propertiesToUpdate = {
-      name: event.target.name.value,
-      description: event.target.description.value,
-      startTime: event.target.startTime.value, 
-      endTime: event.target.endTime.value,
-      day: event.target.day.value
+    if (!Compare(event.target.startTime.value, event.target.endTime.value)) {
+      alert("End time should be later than start time"); 
+    } else {
+      onEditTask();
+      const propertiesToUpdate = {
+        name: event.target.name.value,
+        description: event.target.description.value,
+        startTime: event.target.startTime.value, 
+        endTime: event.target.endTime.value,
+        day: event.target.day.value
+      }
+      return firestore.update({collection: 'tasks', doc: task.id }, propertiesToUpdate);
     }
-    return firestore.update({collection: 'tasks', doc: task.id }, propertiesToUpdate)
   }
 
   return (

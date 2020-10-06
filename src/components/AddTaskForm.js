@@ -1,24 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useFirestore } from 'react-redux-firebase'
+import { useFirestore } from 'react-redux-firebase';
 
 function AddTaskForm(props) {
 
   const firestore = useFirestore();
 
+  const Compare = (startTime, endTime) => {
+    const st = startTime.split(":");
+    const et = endTime.split(":");
+    if (st[0] <= et[0] && st[1] <= et[1]) { 
+      return true
+    } else {
+        return false;
+    }
+  }
+
   function handleAddTaskFormSubmission(event) {
     event.preventDefault();
-    props.onNewTaskCreation();
-    return firestore.collection('tasks').add(
-      {
-        name: event.target.name.value,
-        description: event.target.description.value,
-        startTime: event.target.startTime.value, 
-        endTime: event.target.endTime.value,
-        day: event.target.day.value,
-        isDone: false
-      }
-    );
+    if (!Compare(event.target.startTime.value, event.target.endTime.value)) {
+      alert("End time should be later than start time"); 
+    } else {
+      props.onNewTaskCreation();
+      return firestore.collection('tasks').add(
+        {
+          name: event.target.name.value,
+          description: event.target.description.value,
+          startTime: event.target.startTime.value, 
+          endTime: event.target.endTime.value,
+          day: event.target.day.value,
+          isDone: false
+        }
+      );
+    }
   }
 
   return (
