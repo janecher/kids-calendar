@@ -9,7 +9,8 @@ function SignIn(props){
         <p className="lead mb-5">You can plan it by yourself!</p>
         <div className="col-md-6 col-8 mx-auto">
           <div className="input-group">
-            <input type="text" className="form-control" placeholder="User name" aria-label="User name" />
+            <input type="text" className="form-control" placeholder="Email" aria-label="Email" />
+            <input type="text" className="form-control" placeholder="Password" aria-label="Password" />
             <div className="input-group-append">
               <button type="button" className="btn btn-info" id="signIn">Sign In</button>
             </div>

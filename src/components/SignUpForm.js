@@ -15,20 +15,40 @@ function SignUpForm(props) {
               <div className="card-text">
                 <form className="" onSubmit={props.formSubmissionHandler}>
                   <div className="form-group">
-                    <label>User Name</label>
-                    <input className="form-control form-control-lg"
-                      type='text'
-                      name='userName'
-                      required
-                    />
-                  </div>
-                  <div className ="form-group">
                     <label>Name</label>
                     <input className="form-control form-control-lg"
                       type='text'
                       name='name'
                       required
                     />
+                  </div>
+                  <div className ="form-group">
+                    <label>Email</label>
+                    <input className="form-control form-control-lg"
+                      type='text'
+                      name='email'
+                      required
+                    />
+                  </div>
+                  <div className ="form-group">
+                    <label>Password</label>
+                    <input className="form-control form-control-lg"
+                      type='password'
+                      name='password'
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Theme</label>
+                    <select class="form-control form-control-lg">
+                      <option>Marvel</option>
+                      <option>Disney</option>
+                      <option>Star Wars</option>
+                      <option>Pokemon</option>
+                      <option>Lol Dolls</option>
+                      <option>Lego</option>
+                      <option>Animals</option>
+                    </select>
                   </div>
                   <div className="form-group">
                     <label>Grade</label>
