@@ -6,21 +6,34 @@ function StickersPage(props){
 
   const {stickers, onClickingStickersPageClose} = props; 
 
-  return (
-    <React.Fragment>
-      <div className="p-5">
-        <button type="button" onClick = {() => onClickingStickersPageClose()} className="close" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 className="text-center">Your treasurs</h4>
-        <div className="row">
-          {stickers.map((sticker, index) =>
-            <Sticker url={sticker} key={index} />
-          )}
+  if (stickers.length !== 0) {
+    return (
+      <React.Fragment>
+        <div className="p-5">
+          <button type="button" onClick = {() => onClickingStickersPageClose()} className="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 className="text-center">Your treasurs</h4>
+          <div className="row">
+            {stickers.map((sticker, index) =>
+              <Sticker url={sticker.stickerUrl} key={index} />
+            )}
+          </div>
         </div>
-      </div>
-    </React.Fragment>
-  );
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <div className="p-5">
+          <button type="button" onClick = {() => onClickingStickersPageClose()} className="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 className="text-center">Your don't have treasures yet.</h4>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 StickersPage.propTypes = {
