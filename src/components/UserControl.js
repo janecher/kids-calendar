@@ -3,27 +3,39 @@ import WeekSchedule from './WeekSchedule';
 import AddTaskForm from './AddTaskForm';
 import EditTaskForm from './EditTaskForm';
 import TaskDetail from './TaskDetails';
-import ApiSticker from './ApiSticker';
-import { withFirestore } from 'react-redux-firebase';
+import { withFirestore, useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';
+import { useSelector } from 'react-redux';
+import StickersPage from './StickersPage';
 
 function UserControl(props){
+
+  //array for weekday names
   const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  //array for weekday background styles
   const colors = ["red", "orange", "yellow", "green", "light-blue", "blue", "purple"];
 
+  //states for toggling forms and selected task
   const [addTaskForm, setAddTaskForm] = useState(false);
   const [editTaskForm, setEditTaskForm] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [stickersPage, setStickersPage] = useState(false);
 
+  //toggling form and other components
   const toggleAddTaskForm = () => {
     setAddTaskForm(!addTaskForm);
     setSelectedTask(null);
     setEditTaskForm(false);
+    setStickersPage(false);
   }
   const toggleEditTaskForm = () => {
     setEditTaskForm(!editTaskForm);
   }
   const toggleTaskDetail = () => {
     setSelectedTask(null);
+  }
+
+  const toggleStickersPage = () => {
+    setStickersPage(!stickersPage);
   }
 
   const handleAddingNewTask = () => {
@@ -35,6 +47,7 @@ function UserControl(props){
     setSelectedTask(null);
   }
 
+  //getting selected task data from firestore
   const handleChangingSelectedTask = (id) => {
     props.firestore.get({collection: 'tasks', doc: id}).then((task) => {
       const firestoreTask = {
@@ -50,25 +63,51 @@ function UserControl(props){
     });    
   }
 
+  //deleting selected task from firestore
   const handleDeletingTask = (id) => {
     props.firestore.delete({collection: 'tasks', doc: id});
     setSelectedTask(null);
   }
 
+  //function for getting random index in colors array and later add this style class for components backgroud
   const getRandomColorIndex = () => {
     return Math.floor(Math.random() * Math.floor(colors.length));
   }
 
+  //calculation what is the day of the week
   let todayIndex = new Date().getDay();
   let today = todayIndex === 0 ? weekDays[6] : weekDays[todayIndex-1]
 
+  //get stickers from FireStore
+  useFirestoreConnect([
+    { collection: 'stickers' }
+  ]);
+
+  const stickers = useSelector(state => state.firestore.ordered.stickers);
+
+  //set which component to show
   let currentPage = null;
 
-  if(editTaskForm) {
-    currentPage = <EditTaskForm task = {selectedTask} onEditTask = {handleEditingTaskInList} onCloseEditTaskForm = {toggleEditTaskForm} />
-  } else if (selectedTask) {
-    currentPage = <TaskDetail task = {selectedTask} onClickingEdit = {toggleEditTaskForm} onCloseTaskDetail = {toggleTaskDetail} onClickingDelete = {handleDeletingTask} />
-  } else if (addTaskForm) {
+  if(stickersPage) {
+    if(isLoaded(stickers) && !isEmpty(stickers)) {
+      currentPage = <StickersPage stickers = {stickers} onClickingStickersPageClose = {toggleStickersPage}/>
+    } else {
+      currentPage = <StickersPage stickers = {[]} onClickingStickersPageClose = {toggleStickersPage}/>
+    }
+  } else if(editTaskForm) {
+    currentPage = <EditTaskForm 
+                    task = {selectedTask} 
+                    onEditTask = {handleEditingTaskInList} 
+                    onCloseEditTaskForm = {toggleEditTaskForm} />
+  } else if(selectedTask) {
+    currentPage = <TaskDetail 
+                    task = {selectedTask} 
+                    onClickingEdit = {toggleEditTaskForm} 
+                    onCloseTaskDetail = {toggleTaskDetail} 
+                    onClickingDelete = {handleDeletingTask} 
+                    numberOfStickers = {stickers ? stickers.length : 0} 
+                    />
+  } else if(addTaskForm) {
     currentPage = <AddTaskForm onCloseAddTaskForm={toggleAddTaskForm} onNewTaskCreation={handleAddingNewTask} />
   } else {
     currentPage = <WeekSchedule onTaskSelection={handleChangingSelectedTask} weekDays = {weekDays} colors = {colors}/>
@@ -90,7 +129,7 @@ function UserControl(props){
       <div className="row text-center">
         <div className="col-md-2 col-sm-12 col-xs-12 sidebar border-right border-bottom border-info light-background">
           <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleAddTaskForm}>Add task</button>
-          <ApiSticker />
+          <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleStickersPage}>Treasurs</button>
         </div>
         <div className={"col-md-10 " + colors[getRandomColorIndex()]}>
           {currentPage}
