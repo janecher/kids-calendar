@@ -4,17 +4,35 @@ import { useFirestore } from 'react-redux-firebase';
 
 function TaskDetail(props){
 
-  const {task, onCloseTaskDetail, onClickingEdit, onClickingDelete} = props;
+  const {task, onCloseTaskDetail, onClickingEdit, onClickingDelete, numberOfStickers, onClickingDoneQuote} = props;
 
   const doneUndoneButton = task.isDone ? <button type='button' className="btn btn-success mr-1" onClick={() => onClickingUndone()}>Undone</button> : <button type='button' className="btn btn-success mr-1" onClick={() => onClickingDone()}>Done</button>
 
   const firestore = useFirestore();
+
+  //user theme input
+  const theme = "disney";
+
+  //API call to GYTHY API
+  const makeApiCall = (i) => {
+    fetch(`http://api.giphy.com/v1/stickers/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${theme}&rating=g&limit=${i+1}`)
+    .then(response => {return response.json()})
+    .then(jsonResponse => {
+        return firestore.collection('stickers').add(
+          {
+            stickerUrl: jsonResponse.data[i].images.fixed_width_small.url
+          }
+        );
+      })
+  } 
 
   function onClickingDone() {
     onCloseTaskDetail();
     const propertiesToUpdate = {
       isDone: true
     }
+    makeApiCall(numberOfStickers);
+    onClickingDoneQuote();
     return firestore.update({collection: 'tasks', doc: task.id }, propertiesToUpdate)
   }
 
@@ -41,7 +59,6 @@ function TaskDetail(props){
               <p>End time: {task.endTime}</p>
               <button type='button' className="btn btn-info mr-1" onClick={() => onClickingEdit()}>Edit</button>
               {doneUndoneButton}
-              {/* <button type='button' className="btn btn-success mr-1" onClick={() => onClickingDone()}>Done</button> */}
               <button type='button' className="btn btn-danger" onClick={() => onClickingDelete(task.id)}>Delete</button>
             </div>
           </div>
@@ -55,6 +72,7 @@ TaskDetail.propTypes = {
   task: PropTypes.object,
   onCloseTaskDetail: PropTypes.func,
   onClickingEdit: PropTypes.func,
-  onClickingDelete: PropTypes.func
+  onClickingDelete: PropTypes.func,
+  onClickingDoneQuote: PropTypes.func
 };
 export default TaskDetail
