@@ -36,20 +36,29 @@ function UserControl(props){
 
   //toggling form and other components
   const toggleAddTaskForm = () => {
-    setAddTaskForm(!addTaskForm);
+    setAddTaskForm(true);
     setSelectedTask(null);
     setEditTaskForm(false);
     setStickersPage(false);
   }
+
+  const closeAddTaskForm = () => {
+    setAddTaskForm(false);
+  }
+
   const toggleEditTaskForm = () => {
     setEditTaskForm(!editTaskForm);
   }
+
   const toggleTaskDetail = () => {
     setSelectedTask(null);
   }
 
   const toggleStickersPage = () => {
     setStickersPage(!stickersPage);
+    setAddTaskForm(false);
+    setSelectedTask(null);
+    setEditTaskForm(false);
   }
 
   const handleAddingNewTask = () => {
@@ -123,7 +132,7 @@ function UserControl(props){
                     numberOfStickers = {stickers ? stickers.length : 0} 
                     />
   } else if(addTaskForm) {
-    currentPage = <AddTaskForm onCloseAddTaskForm={toggleAddTaskForm} onNewTaskCreation={handleAddingNewTask} />
+    currentPage = <AddTaskForm onCloseAddTaskForm={closeAddTaskForm} onNewTaskCreation={handleAddingNewTask} />
   } else {
     currentPage = <WeekSchedule onTaskSelection={handleChangingSelectedTask} weekDays = {weekDays} colors = {colors}/>
   }
