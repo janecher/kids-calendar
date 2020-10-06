@@ -9,11 +9,11 @@ function StickersPage(props){
   if (stickers.length !== 0) {
     return (
       <React.Fragment>
-        <div className="p-5">
+        <div className="p-5 fill">
           <button type="button" onClick = {() => onClickingStickersPageClose()} className="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 className="text-center">Your treasurs</h4>
+          <h4 className="text-center mb-5">Your treasurs</h4>
           <div className="row">
             {stickers.map((sticker, index) =>
               <Sticker url={sticker.stickerUrl} key={index} />
@@ -25,7 +25,7 @@ function StickersPage(props){
   } else {
     return (
       <React.Fragment>
-        <div className="p-5">
+        <div className="p-5 fill">
           <button type="button" onClick = {() => onClickingStickersPageClose()} className="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

@@ -1,8 +1,8 @@
 import React from 'react';
 import WeekDay from './WeekDay';
 import PropTypes from "prop-types";
-import { useSelector } from 'react-redux'
-import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 function WeekSchedule(props){
 
