@@ -3,11 +3,13 @@ import WeekSchedule from './WeekSchedule';
 import AddTaskForm from './AddTaskForm';
 import EditTaskForm from './EditTaskForm';
 import TaskDetail from './TaskDetails';
+import StickersPage from './StickersPage';
+import SignIn from './SignIn';
+import ChangeTheme from './ChangeTheme';
 import { withFirestore, useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
-import StickersPage from './StickersPage';
 import firebase from "firebase/app";
-import SignIn from './SignIn';
+
 
 function UserControl(props){
 
@@ -16,6 +18,8 @@ function UserControl(props){
   const name = auth.currentUser ? auth.currentUser.displayName : "Name";
 
   const userId = auth.currentUser ? auth.currentUser.uid : null;
+
+  console.log(auth.currentUser ? auth.currentUser.theme : null);
 
   //array for weekday names
   const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -41,6 +45,7 @@ function UserControl(props){
   const [editTaskForm, setEditTaskForm] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [stickersPage, setStickersPage] = useState(false);
+  const [changeTheme, setChangeTheme] = useState(false);
 
   //toggling form and other components
   const toggleAddTaskForm = () => {
@@ -56,6 +61,14 @@ function UserControl(props){
 
   const toggleEditTaskForm = () => {
     setEditTaskForm(!editTaskForm);
+  }
+
+  const showChangeTheme = () => {
+    setChangeTheme(true);
+  }
+
+  const closeChangeTheme = () => {
+    setChangeTheme(false);
   }
 
   const toggleTaskDetail = () => {
@@ -131,7 +144,9 @@ function UserControl(props){
   //set which component to show
   let currentPage = null;
 
-  if(stickersPage) {
+  if(changeTheme) {
+    currentPage = <ChangeTheme userId = {userId} onCloseThemeForm={closeChangeTheme} onChangeTheme={closeChangeTheme}/>
+  } else if (stickersPage) {
     currentPage = <StickersPage stickers = {stickers} onClickingStickersPageClose = {toggleStickersPage}/>
     // if(isLoaded(stickers) && !isEmpty(stickers)) {
     //   currentPage = <StickersPage stickers = {stickers} onClickingStickersPageClose = {toggleStickersPage}/>
@@ -190,6 +205,7 @@ function UserControl(props){
         <div className="row text-center">
           <div className="col-md-2 col-sm-12 col-xs-12 sidebar border-right border-bottom border-info light-background">
             <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleAddTaskForm}>Add task</button>
+            <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={showChangeTheme}>Theme</button>
             <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleStickersPage}>Treasures</button>
             <h4>{quote}</h4>
           </div>

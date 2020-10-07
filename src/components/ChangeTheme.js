@@ -12,35 +12,33 @@ function ChangeTheme(props) {
     const propertiesToUpdate = {
       theme: event.target.theme.value
     }
-    return firestore.update({collection: 'users', doc: props.userId }, propertiesToUpdate);   
+    return firestore.update({collection: 'users', doc: props.userId }, propertiesToUpdate); 
   }
 
   return (
     <React.Fragment>
-      <div className="start-pages">
-        <div className="col-md-8 col-lg-6 mt-10 mx-auto">
-          <div className="card">
-            <div className="card-body">
-              <button type="button" onClick = {() => props.onCloseThemeForm()} className="close" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 className="card-title">Choose your theme</h4>
-              <div className="card-text">
-                <form className="" onSubmit={handleChangingTheme}>
-                  <div className="form-group">
-                  <select class="form-control form-control-lg">
-                      <option>Marvel</option>
-                      <option>Disney</option>
-                      <option>Star Wars</option>
-                      <option>Pokemon</option>
-                      <option>Lol Dolls</option>
-                      <option>Lego</option>
-                      <option>Animals</option>
-                    </select>
-                  </div> 
-                  <button type='submit' className="btn btn-info">Sign Up</button>
-                </form>
-              </div>
+      <div className="col-md-8 col-lg-6 mt-5 mx-auto fill">
+        <div className="card">
+          <div className="card-body">
+            <button type="button" onClick = {() => props.onCloseThemeForm()} className="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 className="card-title">Choose your theme</h4>
+            <div className="card-text">
+              <form className="" onSubmit={handleChangingTheme}>
+                <div className="form-group">
+                <select className="form-control form-control-lg" name='theme'>
+                    <option>Marvel</option>
+                    <option>Disney</option>
+                    <option>Star Wars</option>
+                    <option>Pokemon</option>
+                    <option>Lol Dolls</option>
+                    <option>Lego</option>
+                    <option>Animals</option>
+                  </select>
+                </div> 
+                <button type='submit' className="btn btn-info">Choose theme</button>
+              </form>
             </div>
           </div>
         </div>
