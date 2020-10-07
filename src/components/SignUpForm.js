@@ -1,19 +1,39 @@
 import React from "react";
-import PropTypes from "prop-types";
+import firebase from "firebase/app";
+import { Link } from "react-router-dom";
 
-function SignUpForm(props) {
+function SignUpForm() {
+
+  const doSignUp = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const name = event.target.name.value;
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(userCredentials => {
+      if(userCredentials.user){
+        userCredentials.user.updateProfile({displayName: name});
+      }
+    }).then(function(){
+      window.location = 'home.html';
+    }).catch(function(error) {
+      alert(error.message);
+    });
+  }
+
   return (
     <React.Fragment>
       <div className="start-pages">
         <div className="col-md-8 col-lg-6 mt-10 mx-auto">
           <div className="card">
             <div className="card-body">
-              <button type="button" onClick = {() => props.onCloseSignUpForm()} className="close" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <Link to="/signin">
+                <button type="button" className="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </Link>
               <h4 className="card-title">Registration Form</h4>
               <div className="card-text">
-                <form className="" onSubmit={props.formSubmissionHandler}>
+                <form className="" onSubmit={doSignUp}>
                   <div className="form-group">
                     <label>Name</label>
                     <input className="form-control form-control-lg"
@@ -38,7 +58,7 @@ function SignUpForm(props) {
                       required
                     />
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label>Theme</label>
                     <select class="form-control form-control-lg">
                       <option>Marvel</option>
@@ -67,7 +87,7 @@ function SignUpForm(props) {
                       <option>11</option>
                       <option>12</option>
                     </select>
-                  </div>
+                  </div> */}
                   <button type='submit' className="btn btn-info">Sign Up</button>
                 </form>
               </div>
@@ -78,10 +98,5 @@ function SignUpForm(props) {
     </React.Fragment>
   );
 }
-
-SignUpForm.propTypes = {
-  formSubmissionHandler: PropTypes.func,
-  onCloseSignUpForm: PropTypes.func
-};
 
 export default SignUpForm;
