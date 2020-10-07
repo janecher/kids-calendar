@@ -9,10 +9,16 @@ function AddTaskForm(props) {
   const Compare = (startTime, endTime) => {
     const st = startTime.split(":");
     const et = endTime.split(":");
-    if (st[0] <= et[0] && st[1] <= et[1]) { 
-      return true
-    } else {
+    if (st[0] < et[0]) { 
+      return true;
+    } else if (st[0] === et[0]) {
+      if(st[1] <= et[1]) {
+        return true;
+      } else {
         return false;
+      }
+    } else {
+      return false;
     }
   }
 
@@ -29,7 +35,8 @@ function AddTaskForm(props) {
           startTime: event.target.startTime.value, 
           endTime: event.target.endTime.value,
           day: event.target.day.value,
-          isDone: false
+          isDone: false,
+          userId: props.userId
         }
       );
     }
@@ -104,7 +111,8 @@ function AddTaskForm(props) {
 
 AddTaskForm.propTypes = {
   onCloseAddTaskForm: PropTypes.func,
-  onNewTaskCreation: PropTypes.func
+  onNewTaskCreation: PropTypes.func,
+  userId: PropTypes.string
 };
 
 export default AddTaskForm;
