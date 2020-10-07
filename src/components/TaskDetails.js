@@ -4,7 +4,7 @@ import { useFirestore } from 'react-redux-firebase';
 
 function TaskDetail(props){
 
-  const {task, onCloseTaskDetail, onClickingEdit, onClickingDelete, numberOfStickers, onClickingDoneQuote} = props;
+  const {task, onCloseTaskDetail, onClickingEdit, onClickingDelete, numberOfStickers, onClickingDoneQuote, userId} = props;
 
   const doneUndoneButton = task.isDone ? <button type='button' className="btn btn-success mr-1" onClick={() => onClickingUndone()}>Undone</button> : <button type='button' className="btn btn-success mr-1" onClick={() => onClickingDone()}>Done</button>
 
@@ -20,7 +20,8 @@ function TaskDetail(props){
     .then(jsonResponse => {
         return firestore.collection('stickers').add(
           {
-            stickerUrl: jsonResponse.data[i].images.fixed_width_small.url
+            stickerUrl: jsonResponse.data[i].images.fixed_width_small.url,
+            userId: userId
           }
         );
       })
@@ -73,6 +74,7 @@ TaskDetail.propTypes = {
   onCloseTaskDetail: PropTypes.func,
   onClickingEdit: PropTypes.func,
   onClickingDelete: PropTypes.func,
-  onClickingDoneQuote: PropTypes.func
+  onClickingDoneQuote: PropTypes.func,
+  userId: PropTypes.string
 };
 export default TaskDetail

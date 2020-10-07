@@ -10,7 +10,9 @@ function WeekSchedule(props){
     { collection: 'tasks' }
   ]);
 
-  const tasks = useSelector(state => state.firestore.ordered.tasks);
+  const allTasks = useSelector(state => state.firestore.ordered.tasks);
+
+  const tasks = allTasks ? allTasks.filter(task => task.userId === props.userId) : [];
 
   const getTasksForDay = (dayName) => {
     let tasksForDay = [];
@@ -48,7 +50,8 @@ function WeekSchedule(props){
 WeekSchedule.propTypes = {
   colors: PropTypes.array,
   onTaskSelection: PropTypes.func,
-  weekDays: PropTypes.array
+  weekDays: PropTypes.array,
+  userId: PropTypes.string
 };
 
 export default WeekSchedule
