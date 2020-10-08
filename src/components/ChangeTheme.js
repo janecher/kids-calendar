@@ -6,13 +6,22 @@ function ChangeTheme(props) {
 
   const firestore = useFirestore();
 
-  const handleChangingTheme = (event) => {
+  function handleChangingTheme(event) {
     event.preventDefault();
     props.onChangeTheme();
-    const propertiesToUpdate = {
-      theme: event.target.theme.value
+    if (props.theme) {
+      const propertiesToUpdate = {
+        theme: event.target.theme.value
+      }
+      return firestore.update({collection: 'themes', doc: props.theme.id }, propertiesToUpdate);  
+    } else {
+      return firestore.collection('themes').add(
+        {
+          theme: event.target.theme.value,
+          userId: props.userId
+        }
+      );
     }
-    return firestore.update({collection: 'users', doc: props.userId }, propertiesToUpdate); 
   }
 
   return (
@@ -50,7 +59,8 @@ function ChangeTheme(props) {
 ChangeTheme.propTypes = {
   onCloseThemeForm: PropTypes.func,
   onChangeTheme: PropTypes.func,
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  theme: PropTypes.object
 };
 
 export default ChangeTheme;

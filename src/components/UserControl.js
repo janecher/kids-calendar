@@ -19,8 +19,6 @@ function UserControl(props){
 
   const userId = auth.currentUser ? auth.currentUser.uid : null;
 
-  console.log(auth.currentUser ? auth.currentUser.theme : null);
-
   //array for weekday names
   const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   //array for weekday background styles
@@ -33,7 +31,6 @@ function UserControl(props){
   const showQuotes = () => {
     setQuote(quotes[getRandomNumber(quotes.length)]);
     const myShow = setInterval(() => setQuote(quotes[getRandomNumber(quotes.length)]), 10000);
-    console.log(quote);
     setTimeout(() => {
       clearInterval(myShow);
       setQuote("");
@@ -145,11 +142,20 @@ function UserControl(props){
   //get only stickers of auth user
   const stickers = allStickers ? allStickers.filter(sticker => sticker.userId === userId) : [];
 
+  //get theme from FireStore
+  useFirestoreConnect([
+    { collection: 'themes' }
+  ]);
+  
+  const allThemes = useSelector(state => state.firestore.ordered.themes);
+  //get only stickers of auth user
+  const theme = allThemes ? allThemes.filter(sticker => sticker.userId === userId)[0] : null;
+
   //set which component to show
   let currentPage = null;
 
   if(changeTheme) {
-    currentPage = <ChangeTheme userId = {userId} onCloseThemeForm={closeChangeTheme} onChangeTheme={closeChangeTheme}/>
+    currentPage = <ChangeTheme userId = {userId} onCloseThemeForm={closeChangeTheme} onChangeTheme={closeChangeTheme} theme={theme}/>
   } else if (stickersPage) {
     currentPage = <StickersPage stickers = {stickers} onClickingStickersPageClose = {toggleStickersPage}/>
     // if(isLoaded(stickers) && !isEmpty(stickers)) {
@@ -171,6 +177,7 @@ function UserControl(props){
                     onClickingDoneQuote = {showQuotes}
                     numberOfStickers = {stickers ? stickers.length : 0} 
                     userId = {userId}
+                    userTheme = {theme}
                     />
   } else if(addTaskForm) {
     currentPage = <AddTaskForm onCloseAddTaskForm={closeAddTaskForm} onNewTaskCreation={handleAddingNewTask} userId={userId}/>

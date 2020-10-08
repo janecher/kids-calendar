@@ -4,14 +4,14 @@ import { useFirestore } from 'react-redux-firebase';
 
 function TaskDetail(props){
 
-  const {task, onCloseTaskDetail, onClickingEdit, onClickingDelete, numberOfStickers, onClickingDoneQuote, userId} = props;
+  const {task, onCloseTaskDetail, onClickingEdit, onClickingDelete, numberOfStickers, onClickingDoneQuote, userId, userTheme} = props;
 
   const doneUndoneButton = task.isDone ? <button type='button' className="btn btn-success mr-1" onClick={() => onClickingUndone()}>Undone</button> : <button type='button' className="btn btn-success mr-1" onClick={() => onClickingDone()}>Done</button>
 
   const firestore = useFirestore();
 
   //user theme input
-  const theme = "animals";
+  const theme = userTheme ? userTheme.theme : "animals";
 
   //API call to GYTHY API
   const makeApiCall = (i) => {
@@ -75,6 +75,7 @@ TaskDetail.propTypes = {
   onClickingEdit: PropTypes.func,
   onClickingDelete: PropTypes.func,
   onClickingDoneQuote: PropTypes.func,
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  theme: PropTypes.object
 };
 export default TaskDetail
