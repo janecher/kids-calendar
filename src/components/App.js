@@ -20,26 +20,6 @@ function App() {
       </Switch>
     </Router>
   );
-  // const [signUpForm, setSignUpForm] = useState(false);
-
-  // const toggleSignUp = () => {
-  //   setSignUpForm(!signUpForm);
-  // }
-
-  // let currentPage = null;
-
-  // if(signUpForm) {
-  //   currentPage = <SignUpForm onCloseSignUpForm={toggleSignUp}/>
-  // } else {
-  //   currentPage = <SignIn onClickingSignUp={toggleSignUp}/>
-  // }
-
-  // currentPage = <UserControl />
-  // return (
-  //   <React.Fragment>
-  //     {currentPage}
-  //   </React.Fragment>
-  // );
 }
 
 export default App;

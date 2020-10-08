@@ -1,11 +1,8 @@
 import React from "react";
 import firebase from "firebase/app";
 import { Link } from "react-router-dom";
-import { useFirestore } from 'react-redux-firebase';
 
 function SignUpForm() {
-
-  const firestore = useFirestore();
 
   const doSignUp = (event) => {
     event.preventDefault();
@@ -13,22 +10,11 @@ function SignUpForm() {
     const password = event.target.password.value;
     const name = event.target.name.value;
     firebase.auth().createUserWithEmailAndPassword(email, password).then(userCredentials => {
+      console.log(userCredentials.user);
       if(userCredentials.user){
         userCredentials.user.updateProfile({displayName: name});
       }
-    })
-    // .then(function(userCredentials){
-    //   if(userCredentials.user){
-    //     console.log(userCredentials.user);
-    //     // return firestore.collection('themes').add(
-    //     //   {
-    //     //     theme: 'animal',
-    //     //     userId: userCredentials.user.uid
-    //     //   }         
-    //     // );
-    //   }
-    // })
-      .then(function(){
+    }).then(function(){
       window.location = 'home.html';
     }).catch(function(error) {
       alert(error.message);
@@ -73,36 +59,6 @@ function SignUpForm() {
                       required
                     />
                   </div>
-                  {/* <div className="form-group">
-                    <label>Theme</label>
-                    <select class="form-control form-control-lg">
-                      <option>Marvel</option>
-                      <option>Disney</option>
-                      <option>Star Wars</option>
-                      <option>Pokemon</option>
-                      <option>Lol Dolls</option>
-                      <option>Lego</option>
-                      <option>Animals</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Grade</label>
-                    <select class="form-control form-control-lg">
-                      <option>K</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                      <option>11</option>
-                      <option>12</option>
-                    </select>
-                  </div> */}
                   <button type='submit' className="btn btn-info">Sign Up</button>
                 </form>
               </div>

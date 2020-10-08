@@ -11,7 +11,7 @@ function TaskDetail(props){
   const firestore = useFirestore();
 
   //user theme input
-  const theme = "disney";
+  const theme = "animals";
 
   //API call to GYTHY API
   const makeApiCall = (i) => {
