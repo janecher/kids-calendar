@@ -6,7 +6,7 @@ import TaskDetail from './TaskDetails';
 import StickersPage from './StickersPage';
 import SignIn from './SignIn';
 import ChangeTheme from './ChangeTheme';
-import { withFirestore, useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';
+import { withFirestore, useFirestoreConnect, isLoaded } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import firebase from "firebase/app";
 

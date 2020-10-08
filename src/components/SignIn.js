@@ -18,7 +18,7 @@ function SignIn(){
   return (
     <React.Fragment>
       <div className="text-center start-pages">
-        <h1 className="mt-10 display-3">Kids Schedule</h1>
+        <h1 className="mt-10 display-3">Kids Calendar</h1>
         <p className="lead mb-5">You can plan it by yourself!</p>
         <div className="col-md-6 col-8 mx-auto">         
           <form onSubmit={doSignIn} className="input-group">
