@@ -9,7 +9,7 @@ function StickersPage(props){
   if (stickers.length !== 0) {
     return (
       <React.Fragment>
-        <div className="p-5 fill">
+        <div className="p-5 fill-large">
           <button type="button" onClick = {() => onClickingStickersPageClose()} className="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -25,7 +25,7 @@ function StickersPage(props){
   } else {
     return (
       <React.Fragment>
-        <div className="p-5 fill">
+        <div className="p-5 fill-large">
           <button type="button" onClick = {() => onClickingStickersPageClose()} className="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

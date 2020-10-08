@@ -1,8 +1,11 @@
 import React from "react";
 import firebase from "firebase/app";
 import { Link } from "react-router-dom";
+import { useFirestore } from 'react-redux-firebase';
 
 function SignUpForm() {
+
+  const firestore = useFirestore();
 
   const doSignUp = (event) => {
     event.preventDefault();
@@ -13,7 +16,19 @@ function SignUpForm() {
       if(userCredentials.user){
         userCredentials.user.updateProfile({displayName: name});
       }
-    }).then(function(){
+    })
+    // .then(function(userCredentials){
+    //   if(userCredentials.user){
+    //     console.log(userCredentials.user);
+    //     // return firestore.collection('themes').add(
+    //     //   {
+    //     //     theme: 'animal',
+    //     //     userId: userCredentials.user.uid
+    //     //   }         
+    //     // );
+    //   }
+    // })
+      .then(function(){
       window.location = 'home.html';
     }).catch(function(error) {
       alert(error.message);

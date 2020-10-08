@@ -6,13 +6,11 @@ function WeekDay(props){
 
   return (
     <React.Fragment>
-      <div className={"col-sm-12 col-md fill border-right border-info " + props.color}>
+      <div className={"col-md-12 col-lg fill border-right border-info weekday " + props.color}>
         <p className="rounded border-secondary border-info mt-3"><strong>{props.day}</strong></p>
-        <div className="tasks">
-          {props.tasks.map((task, index) =>
-            <Task task={task} key={index} whenTaskClicked ={props.whenTaskClicked}/>
-          )}
-        </div>
+        {props.tasks.map((task, index) =>
+          <Task task={task} key={index} whenTaskClicked ={props.whenTaskClicked}/>
+        )}
       </div>
     </React.Fragment>
   );

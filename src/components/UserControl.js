@@ -203,13 +203,13 @@ function UserControl(props){
           </div>
         </div>
         <div className="row text-center">
-          <div className="col-md-2 col-sm-12 col-xs-12 sidebar border-right border-bottom border-info light-background">
-            <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleAddTaskForm}>Add task</button>
-            <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={showChangeTheme}>Theme</button>
-            <button type="button" className="btn btn-info btn-lg mt-3 mb-3" onClick={toggleStickersPage}>Treasures</button>
+          <div className="col-lg-2 col-md-12 sidebar border-right border-bottom border-info light-background">
+            <button type="button" className="btn btn-info btn-lg mt-3 mb-3 mr-3 save_button" onClick={toggleAddTaskForm}>Add task</button>
+            <button type="button" className="btn btn-info btn-lg mt-3 mb-3 mr-3 save_button" onClick={showChangeTheme}>Theme</button>
+            <button type="button" className="btn btn-info btn-lg mt-3 mb-3 mr-3 save_button" onClick={toggleStickersPage}>Treasures</button>
             <h4>{quote}</h4>
           </div>
-          <div className={"col-md-10 " + colors[getRandomNumber(colors.length)]}>
+          <div className={"col-lg-10 " + colors[getRandomNumber(colors.length)]}>
             {currentPage}
           </div>
         </div>

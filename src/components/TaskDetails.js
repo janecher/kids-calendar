@@ -47,7 +47,7 @@ function TaskDetail(props){
 
   return (
     <React.Fragment>
-      <div className="col-md-8 col-lg-6 mt-5 mx-auto fill">
+      <div className="col-md-8 col-lg-6 mt-5 mx-auto fill-large">
         <div className="card">
           <div className="card-body">
             <button type="button" onClick = {() => onCloseTaskDetail()} className="close" aria-label="Close">

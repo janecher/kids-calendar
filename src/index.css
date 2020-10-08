@@ -43,6 +43,11 @@ code {
   height: 100%;
 }
 
+.fill-large {
+  min-height: 90vh;
+  height: 100%;
+}
+
 .rounded {
   border-style: double;
 }
@@ -89,4 +94,26 @@ code {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.save_button {
+  min-width: 120px;
+}
+
+.weekday {
+  overflow: hidden;
+}
+
+.task { 
+  overflow: auto; 
+}
+
+@media only screen and (max-width: 992px) {
+  .fill {
+    min-height: 20vh;
+  }
+  .save_button {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
